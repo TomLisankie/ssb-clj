@@ -1,6 +1,13 @@
-(ns ssb-clj.core)
+(ns ssb-clj.core
+  (:require [caesium.crypto.sign :as sign]))
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(defn byte-buffer-to-string
+  "Converts the contents of a java.nio.ByteBuffer to a string."
+  [buffer]
+  (let [bytes (.array buffer)
+        string-from-byte-array (String. bytes)]
+    string-from-byte-array))
+
+(def keypair (sign/keypair!))
+(def public-key-string (byte-buffer-to-string (:public keypair)))
+(def secret-key-string (byte-buffer-to-string (:secret keypair)))
