@@ -6,8 +6,8 @@
 (defn save-keypair
   "saves keypair to ~/.ssb-clj/secret"
   [pair file-path]
-  (let [public-key-string (bs/to-string (b64/encode (byte-array (.array (:public pair)))))
-        secret-key-string (bs/to-string (b64/encode (byte-array (.array (:secret pair)))))]
+  (let [public-key-string (->> (:public pair) (.array) (byte-array) (b64/encode) (bs/to-string))
+        secret-key-string (->> (:secret pair) (.array) (byte-array) (b64/encode) (bs/to-string))]
     (spit file-path (str "Public Key: " public-key-string))
     (spit file-path (str "\nPrivate Key: " secret-key-string) :append true)))
 
@@ -21,5 +21,4 @@
   [file-path]
   (let [keypair (sign/keypair!)]
     (save-keypair keypair file-path)
-    (show-user-id (bs/to-string (b64/encode (byte-array (.array (:public keypair))))))))
-  
+    (->> (:public keypair) (.array) (byte-array) (b64/encode) (bs/to-string) (show-user-id))))
