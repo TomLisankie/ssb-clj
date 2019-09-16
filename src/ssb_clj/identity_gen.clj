@@ -22,3 +22,10 @@
   (let [keypair (sign/keypair!)]
     (save-keypair keypair file-path)
     (->> (:public keypair) (.array) (byte-array) (b64/encode) (bs/to-string) (show-user-id))))
+
+(defn load-public-key
+  "slurps in user's public key"
+  [file-path]
+  (let [text (slurp file-path)]
+    text))
+  
