@@ -6,5 +6,6 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [caesium "0.12.0"]
                  [org.clojure/data.codec "0.1.1"]
-                 [aleph "0.4.6"]]
+                 [aleph "0.4.6"]
+                 [overtone/at-at "1.2.0"]]
   :repl-options {:init-ns ssb-clj.core})
