@@ -7,7 +7,7 @@
             [clojure.string :as clj-str]
             [overtone.at-at :as at-at]))
 
-(def public-key (first (clj-str/split (second (clj-str/split (id-gen/load-public-key "/home/thomas/.ssb-clj/secret") #": ")) #"\n")))
+(def public-key (first (clj-str/split (second (clj-str/split (id-gen/load-public-key "/Users/thomas/.ssb-clj/secret") #": ")) #"\n")))
 
 (defn generate-udp-packet
   "Generates a UDP packet that will be broadcast to the local network"
@@ -36,16 +36,15 @@
   [packet]
   (String. (.getData packet)))
 
+(def socket (DatagramSocket. 8008))
 (defn send-packet
   "sends a UDP packet"
   [packet]
-  (println "broadcasting packet?")
-  (let [socket (DatagramSocket. 8008)]
-    (.send socket packet)))
+  (.send socket packet))
 
 (def broadcast-thread-pool (at-at/mk-pool))
-(defn broadcast-to-local
+(defn broadcast-id-to-local
   "Broadcasts a packet containing the user's public key to the local network (255.255.255.255:8008) once per second"
   []
   (let [id-packet (generate-udp-packet "255.255.255.255" 8008 public-key)]
-    (at-at/every 1000 send-packet broadcast-thread-pool)))
+    (at-at/every 1000 #(send-packet id-packet) broadcast-thread-pool)))
