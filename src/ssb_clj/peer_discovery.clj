@@ -2,12 +2,21 @@
   (:import (java.net
             DatagramSocket
             DatagramPacket
-            InetSocketAddress))
+            InetSocketAddress)
+           org.apache.tuweni.scuttlebutt.discovery.ScuttlebuttLocalDiscoveryService
+           org.apache.tuweni.scuttlebutt)
   (:require [ssb-clj.identity-gen :as id-gen]
             [clojure.string :as clj-str]
             [overtone.at-at :as at-at]))
 
-(def public-key (first (clj-str/split (second (clj-str/split (id-gen/load-public-key "/Users/thomas/.ssb-clj/secret") #": ")) #"\n")))
+(def local-discovery-service (ScuttlebuttLocalDiscoveryService.
+                              (Vertex/vertx) (Logger/nullLogger)
+                              8008 "0.0.0.0"  "255.255.255.255"))
+
+((.addIdentityToBroadcastList ) local-discovery-service)
+(.join (.start local-discovery-service))
+
+(def public-key (first (clj-str/split (second (clj-str/split (id-gen/load-public-key "/home/thomas/.ssb-clj/secret") #": ")) #"\n")))
 
 (defn generate-udp-packet
   "Generates a UDP packet that will be broadcast to the local network"
@@ -48,3 +57,7 @@
   []
   (let [id-packet (generate-udp-packet "255.255.255.255" 8008 public-key)]
     (at-at/every 1000 #(send-packet id-packet) broadcast-thread-pool)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+

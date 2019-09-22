@@ -7,5 +7,11 @@
                  [caesium "0.12.0"]
                  [org.clojure/data.codec "0.1.1"]
                  [aleph "0.4.6"]
-                 [overtone/at-at "1.2.0"]]
-  :repl-options {:init-ns ssb-clj.core})
+                 [overtone/at-at "1.2.0"]
+                 [org.apache.tuweni/tuweni-scuttlebutt-rpc "0.8.2"]
+                 [org.apache.tuweni/tuweni-scuttlebutt-handshake "0.8.2"]
+                 [org.apache.tuweni/tuweni-scuttlebutt-discovery "0.8.2"]
+                 [org.apache.tuweni/tuweni-scuttlebutt "0.8.2"]]
+  :repl-options {:init-ns ssb-clj.core}
+  :repositories [["jcenter" "https://jcenter.bintray.com/"]]
+  :plugins [[s3-wagon-private "1.3.1"]])

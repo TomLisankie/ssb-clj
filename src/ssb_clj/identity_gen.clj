@@ -1,4 +1,5 @@
 (ns ssb-clj.identity-gen
+  (:import (org.apache.tuweni.scuttlebutt Ed25519KeyPairIdentity))
   (:require [caesium.crypto.sign :as sign]
             [byte-streams :as bs]
             [clojure.data.codec.base64 :as b64]))
