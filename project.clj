@@ -11,7 +11,7 @@
                  [org.apache.tuweni/tuweni-scuttlebutt-rpc "0.8.2"]
                  [org.apache.tuweni/tuweni-scuttlebutt-handshake "0.8.2"]
                  [org.apache.tuweni/tuweni-scuttlebutt-discovery "0.8.2"]
-                 [org.apache.tuweni/tuweni-scuttlebutt "0.8.2"]]
-  :repl-options {:init-ns ssb-clj.core}
-  :repositories [["jcenter" "https://jcenter.bintray.com/"]]
-  :plugins [[s3-wagon-private "1.3.1"]])
+                 [org.apache.tuweni/tuweni-scuttlebutt "0.8.2"]
+                 [crypto-random "1.2.0"]]
+  :repl-options {:init-ns ssb-clj.identity-gen}
+  :repositories [["jcenter" "https://jcenter.bintray.com/"]])
