@@ -32,3 +32,9 @@
         verification (verify-signature-for-message id signature message)]
     (is (= verification true))
     (is (not= true (verify-signature-for-message id signature (Bytes/fromHexString "deadb33f"))))))
+
+(deftest write-and-read-id-from-disk-test
+  "Tests writing an identity to disk and then reading it back in to make sure it matches the original"
+  (let [identity (generate-new-identity)]
+    (write-identity-to-disk identity)
+    (is (= (read-identity-from-disk) identity))))

@@ -13,5 +13,5 @@
                  [org.apache.tuweni/tuweni-scuttlebutt-discovery "0.8.2"]
                  [org.apache.tuweni/tuweni-scuttlebutt "0.8.2"]
                  [crypto-random "1.2.0"]]
-  :repl-options {:init-ns ssb-clj.identity-gen}
+  :repl-options {:init-ns ssb-clj.identity-utils}
   :repositories [["jcenter" "https://jcenter.bintray.com/"]])
