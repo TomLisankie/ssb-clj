@@ -11,3 +11,13 @@
   (let [random-byte-seed (cr/bytes 32)
         key-pair (Signature$KeyPair/random)]
     (Identity/fromKeyPair key-pair)))
+
+(defn public-key-ed25519
+  "Gets the Ed25519 version of the public key"
+  [identity]
+  (.ed25519PublicKey identity))
+
+(defn write-identity-to-disk
+  "Writes an identity to ~/.ssb"
+  [identity]
+  (let [public-key-string 
