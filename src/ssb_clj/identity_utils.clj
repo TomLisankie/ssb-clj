@@ -1,4 +1,4 @@
-(ns ssb-clj.identity-gen
+(ns ssb-clj.identity-utils
   (:import (org.apache.tuweni.scuttlebutt Identity
                                           Ed25519KeyPairIdentity)
            (org.apache.tuweni.crypto.sodium Signature
@@ -34,6 +34,16 @@
   (.hashCode identity))
 
 ;;(defn write-identity-to-disk
-  ;;"Writes an identity to ~/.ssb"
+  ;;"Writes an identity to ~/.ssb/secret"
   ;;[identity]
   ;;(let [public-key-string 
+
+(defn sign-message
+  "Signs a message with a public key from an ID"
+  [id message]
+  (.sign id message))
+
+(defn verify-signature-for-message
+  "Verifies that the message was actually signed by an ID"
+  [id signature message]
+  (.verify id signature message))

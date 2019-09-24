@@ -1,6 +1,7 @@
-(ns ssb-clj.identity-gen-test
+(ns ssb-clj.identity-utils-test
+  (:import (org.apache.tuweni.bytes Bytes))
   (:require [clojure.test :refer :all]
-            [ssb-clj.identity-gen :refer :all]))
+            [ssb-clj.identity-utils :refer :all]))
 
 (deftest test-random-ids
   "Tests to make sure two random IDs are not equal"
@@ -22,3 +23,12 @@
         id (generate-new-identity key-pair)
         public-key-string (str "@" (->> key-pair .publicKey .bytes .toBase64String) ".ed25519")]
     (is (= public-key-string (id-as-string id)))))
+
+(deftest test-sign-and-verify
+  "Tests to see if signing messaging and verifying signatures works"
+  (let [id (generate-new-identity)
+        message (Bytes/fromHexString "deadbeef")
+        signature (sign-message id message)
+        verification (verify-signature-for-message id signature message)]
+    (is (= verification true))
+    (is (not= true (verify-signature-for-message id signature (Bytes/fromHexString "deadb33f"))))))
