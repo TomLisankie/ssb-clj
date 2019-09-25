@@ -7,3 +7,8 @@
   "Creates an identity for use during peer discovery"
   [ip port identity]
   (LocalIdentity. ip port identity))
+
+(defn local-id-as-string
+  "Converts a local ID to its canonical form as a string"
+  [local-identity]
+  (.toCanonicalForm local-identity))
