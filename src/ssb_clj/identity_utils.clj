@@ -79,4 +79,4 @@
         public-key (Signature$PublicKey/fromBytes public-key-bytes)
         secret-key (Signature$SecretKey/fromBytes secret-key-bytes)
         key-pair (Signature$KeyPair. public-key secret-key)]
-    (Identity/fromKeyPair key-pair))))
+    (Identity/fromKeyPair key-pair)))
