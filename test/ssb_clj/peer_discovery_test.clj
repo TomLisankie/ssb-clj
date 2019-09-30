@@ -1,5 +1,4 @@
 (ns ssb-clj.peer-discovery-test
-  (:import (org.apache.tuweni.scuttlebutt.discovery ScuttlebuttLocalDiscoveryService))
   (:require [clojure.test :refer :all]
             [ssb-clj.identity-utils :refer :all]
             [ssb-clj.peer-discovery :refer :all]))
@@ -41,3 +40,31 @@
     (stop-service service)
     (start-service service)
     (stop-service service)))
+
+;; This test is going to have to wait until my relevant Tuweni pull request goes through unfortunately.
+;; (deftest test-broadcast-and-listen
+;;   "Tests to see if packets are being broadcast properly and listened for"
+;;   (let [service-1 (create-discovery-service 18008
+;;                                             18009
+;;                                             "127.0.0.1"
+;;                                             "127.0.0.1"
+;;                                             false)
+;;         service-2 (create-discovery-service 18009
+;;                                             18008
+;;                                             "127.0.0.1"
+;;                                             "127.0.0.1"
+;;                                             false)
+;;         local-id (make-local-identity "10.0.0.1"
+;;                                       10000
+;;                                       (generate-new-identity))
+;;         reference (AtomicReference.)]
+;;     (start-service service-2)
+;;     (append-identity-to-broadcast-list local-id)
+;;     (add-listener service-2 reference)
+;;     (start-service service-1)
+;;     (broadcast service-1)
+;;     (Thread/sleep 1000)
+;;     (is (not (null? reference)))
+;;     (is (= local-id (.get reference)))
+;;     (stop-service service-1)
+;;     (stop-service service-2)))
