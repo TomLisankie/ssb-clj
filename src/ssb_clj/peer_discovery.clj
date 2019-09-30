@@ -16,22 +16,23 @@
 
 (defn create-discovery-service
   "Returns a new instance of the ScuttlebuttLocalDiscoveryService"
-  ([port source-ip multicast-ip]
+  [port source-ip multicast-ip]
   (ScuttlebuttLocalDiscoveryService. (io.vertx.core.Vertx/vertx)
                                      (.getLogger (org.logl.LoggerProvider/nullProvider)
                                                  "test")
                                      port
                                      source-ip
                                      multicast-ip))
-  ([listen-port broadcast-port source-ip multicast-ip validate-multicast]
-   (ScuttlebuttLocalDiscoveryService. (io.vertx.core.Vertx/vertx)
-                                      (.getLogger (org.logl.LoggerProvider/nullProvider)
-                                                  "test")
-                                      listen-port
-                                      broadcast-port
-                                      source-ip
-                                      multicast-ip
-                                      validate-multicast)))
+; this arity is gonna have to wait until my Tuweni pull request goes through
+  ;; ([listen-port broadcast-port source-ip multicast-ip validate-multicast]
+  ;;  (ScuttlebuttLocalDiscoveryService. (io.vertx.core.Vertx/vertx)
+  ;;                                     (.getLogger (org.logl.LoggerProvider/nullProvider)
+  ;;                                                 "test")
+  ;;                                     listen-port
+  ;;                                     broadcast-port
+  ;;                                     source-ip
+  ;;                                     multicast-ip
+  ;;                                     validate-multicast)))
 
 ;; start the service
 (defn start-service
@@ -58,7 +59,7 @@
 
 (defn append-identity-to-broadcast-list
   "Appends the specified identity to the list of identities to be broadcast"
-  [identity]
+  [service identity]
   (.addIdentityToBroadcastList service identity))
 
 (defn add-listener
