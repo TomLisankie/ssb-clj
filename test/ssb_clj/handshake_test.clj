@@ -28,3 +28,19 @@
                                         (Bytes32/random))
         initial-message (create-hello client)]
     (is (thrown? HandshakeException (read-hello server initial-message)))))
+
+(deftest test-identity-message-exchanged
+  "Tests whether or not identity message was exchanged properly"
+  (let [client-long-term-key-pair (random-key-pair)
+        server-long-term-key-pair (random-key-pair)
+        network-identifier (Bytes32/random)
+        client (create-handshake-client client-long-term-key-pair
+                                        network-identifier
+                                        (.publicKey server-long-term-key-pair))
+        server (create-handshake-server server-long-term-key-pair
+                                        network-identifier)
+        initial-message (create-hello client)]
+    (read-hello server initial-message)
+    (read-hello client (create-hello server))
+    (read-identity-message server (create-identity-message client))
+    (is (= (.publicKey client-long-term-key-pair) (client-long-term-public-key server)))))
